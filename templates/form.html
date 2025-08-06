@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Formulario{% endblock %}
+
+{% block content %}
+<div class="modal-overlay visible">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <h2 id="modalTitle">Gestion de Usuarios</h2>
+
+        
+        <form method="post">
+            <input type="hidden" name="id" value="{{ user.id or '' }}">
+            <p><label>Nombre: <input type="text" name="nombre" value="{{ user.nombre or '' }}"></label></p>
+            <p><label>Apellido: <input type="text" name="apellido" value="{{ user.apellido or '' }}"></label></p>
+            <p><label>Email: <input type="email" name="email" value="{{ user.email or '' }}"></label></p>
+            <p><label>Telefono: <input type="tel" name="telefono" value="{{ user.telefono or '' }}"></label></p>
+            <p><label>Edad: <input type="number" name="edad" value="{{ user.edad or '' }}"></label></p>
+            <p><label>Contraseña: <input type="password" name="contrasena" value="{{ user.contrasena or '' }}"></label></p>
+            
+            
+            <button type="submit">Guardar</button>
+        </form>
+        
+        <a href="{{ url_for('menu') }}" class="btn"> Volver al menú</a>
+    </div>
+</div>
+{% endblock %}

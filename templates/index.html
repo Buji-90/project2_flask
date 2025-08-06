@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de Usuarios{% endblock %}
+
+{% block content %}
+<div class="contenedor-centrado">
+  <h1>Gestion de Usuarios</h1>
+    <a href="#addUserModal" class="btn">➕ Añadir usuario</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Edad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in usuarios %}
+        <tr>
+          <td>{{ user.nombre }}</td>
+          <td>{{ user.apellido }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.edad }}</td>
+          <td>
+            <a href="{{ url_for('form' , id=user.id) }}">  Editar</a> |
+            <a href="{{ url_for('delete_user_html' , user_id=user.id) }}">  Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+    </div>
+
+<div id="addUserModal" class="modal-overlay">
+  <div class="modal-content" role="dialog" aria-modal="true"
+       aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <a href="#" class="close" aria-label="Cerrar">&times;</a>
+    <h2 id="modalTitle">Nuevo usuario</h2>
+    <p id="modalDesc">Rellena los campos para crear un nuevo usuario.</p>
+    <form action="/form" method="POST">
+      <input type="hidden" name="id" value="">
+      <p><input type="text" name="nombre" placeholder="Nombre" required></p>
+      <p><input type="text" name="apellido" placeholder="Apellido" required></p>
+      <p><input type="email" name="email" placeholder="Email" required></p>
+      <p><input type="password" name="contrasena" placeholder="Contraseña" required></p>
+      <p><input type="number" name="edad" placeholder="Edad" required></p>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+
+        
+            
+            

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Menú Principal{% endblock %}
+
+{% block content %}
+<div class="contenedor-centrado">
+    <h1>Menú Principal</h1>
+
+    <a href="{{ url_for('form') }}" class="btn"> Añadir Usuario</a>
+    
+    <a href="{{ url_for('tabla') }}" class="btn"> Gestionar Usuarios</a>
+
+</div>
+
+{% endblock %}
