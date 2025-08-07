@@ -14,6 +14,19 @@ def obtener_usuario(user_id: str) -> Dict:
 def crear_usuario(datos: Dict) -> Dict:
     if not datos.get("id"):
         datos["id"] = str(uuid.uuid4())
+    #Validaciones de campos vacios
+    campos_obligatorios = ["nombre", "apellido","email","telefono","contrasena", "edad"]
+    for campo in campos_obligatorios:
+        if not datos.get(campo):
+            raise ValueError(f"El campo '{campo}' es obligatorio")
+    #Validacion de duplicados
+    usuarios = listar_usuarios()
+    for u in usuarios:
+        if u["email"] == datos["email"]:
+            raise ValueError("El email ya se encuentra en uso")
+        if u["telefono"] == datos["telefono"]:
+            raise ValueError("El telefono ya se encuentra en uso")
+        
     user = User.from_dict(datos)
     return data_access.add_user(user.to_dict())
 def actualizar_usuario(user_id: str, nuevos_datos: Dict) -> Dict:

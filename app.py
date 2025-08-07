@@ -1,5 +1,5 @@
 from services import *
-from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask import Flask, request, jsonify, render_template, redirect, url_for, flash
 from flask_ngrok import run_with_ngrok
 import uuid
 
@@ -60,10 +60,15 @@ def form():
         try:
             obtener_usuario(datos["id"])
             actualizar_usuario(datos["id"], datos)
-        except KeyError:    
-            crear_usuario(datos)
-        
-        return redirect(url_for("tabla"))
+            return redirect(url_for("tabla"))
+        except KeyError:
+            try:    
+                crear_usuario(datos)
+                return redirect(url_for("tabla"))
+            except ValueError as e:
+                flash(str(e)) # Muestra el error en el formulario
+        return render_template("form.html", user=datos)
+           
     #GET
     user_id = request.args.get("id")
     if user_id:
