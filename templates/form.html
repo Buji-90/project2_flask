@@ -1,0 +1,56 @@
+<!--Formulario para crear o editar usuarios.
+Responsabilidades:
+Renderizar campos editables correspondientes a los atributos de User.
+Validar en cliente mediante atributos HTML5 (required, pattern, min, max, minlength).
+Mostrar errores de validación recibidos del backend mediante mensajes flash.
+Permitir el envío (POST) para guardar datos o la redirección de regreso al menú.-->
+
+{% extends "base.html" %}
+
+{% block title %}Formulario{% endblock %}
+
+{% block content %}
+<div class="modal-overlay visible">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <h2 id="modalTitle">Gestion de Usuarios</h2>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-errors">
+            {% for message in messages %}
+                <li style="color: red">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+        
+        <form method="post">
+            <input type="hidden" name="id" value="{{ user.id or '' }}">
+            <p><label>Nombre: <input type="text" name="nombre" value="{{ user.nombre or '' }}" required ></label></p>
+            <p><label>Apellido: <input type="text" name="apellido" value="{{ user.apellido or '' }}" required ></label></p>
+            <p><label>Email: <input type="email" name="email" value="{{ user.email or '' }}" required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                title="Introduce un email valido en minusculas"
+                oninput="this.value = this.value.toLowerCase()">
+            </label></p>
+            <p><label>Telefono: 
+                <input type="tel" name="telefono" value="{{ user.telefono or '' }}" 
+                        required pattern="[0-9]{9}" title="Debe contener 9 digitos" >
+            </label></p>
+            <p><label>Edad:
+                <input type="number" name="edad" value="{{ user.edad or '' }}"required min="1" max="120"
+                        title="La edad debe estar entre 1 y 120" >
+            </label></p>
+            <p><label>Contraseña:
+                <input type="password" name="contrasena" value="{{ user.contrasena or '' }}"
+               required minlength="6" title="Mínimo 6 caracteres">
+            </label></p>
+            
+            
+            <button type="submit">Guardar</button>
+        </form>
+        
+        <a href="{{ url_for('menu') }}" class="btn"> Volver al menú</a>
+    </div>
+</div>
+{% endblock %}

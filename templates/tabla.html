@@ -1,0 +1,47 @@
+<!--Mostrar la lista de usuarios en formato tabla, permitiendo editar o eliminar cada uno.
+Responsabilidades:
+Renderizar todos los usuarios recibidos desde la ruta /tabla.
+Proveer acciones de edición y eliminación por usuario.
+Incluir un enlace para volver al menú principal.-->
+
+{% extends "base.html" %}
+
+{% block title %}Gestión de Usuarios{% endblock %}
+
+{% block content %}
+<div class="modal-overlay visible">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <h2 id="modalTitle">Gestión de Usuarios</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Edad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in usuarios %}
+                <tr>
+                    <td>{{ user.nombre }}</td>
+                    <td>{{ user.apellido }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.telefono }}</td>
+                    <td>{{ user.edad }}</td>
+                    <td>
+                        <a href="{{ url_for('form' , id=user.id) }}"> Editar</a> |
+                        <a href="{{ url_for('delete_user_html', user_id=user.id) }}"> Eliminar</a>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('menu') }}" class="btn" style="margin-top: 1rem;"> Volver al menú</a>
+    </div>
+</div>
+{% endblock %}

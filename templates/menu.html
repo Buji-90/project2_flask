@@ -1,0 +1,33 @@
+<!--Página principal de la aplicación. Sirve como menú de navegación para añadir y gestionar usuarios.
+Responsabilidades:
+Mostrar mensajes flash de error/validación.
+Proveer accesos directos al formulario de creación y a la tabla de gestión.-->
+
+{% extends "base.html" %}
+
+{% block title %}Menú Principal{% endblock %}
+
+{% block content %}
+<div class="contenedor-centrado">
+    <h1>Menú Principal</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-errors">
+                {% for message in messages %}
+                    <li style="color: red;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+    
+
+    <a href="{{ url_for('form') }}" class="btn"> Añadir Usuario</a>
+    
+    <a href="{{ url_for('tabla') }}" class="btn"> Gestionar Usuarios</a>
+
+</div>
+
+{% endblock %}

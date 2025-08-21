@@ -1,0 +1,21 @@
+<!--Proporcionar una estructura HTML común para todas las vistas. Define bloques reutilizables (title, content) y enlaza el CSS global.
+Responsabilidades:
+Definir la cabecera HTML con metadatos comunes.
+Incluir el enlace a la hoja de estilos principal.
+Exponer bloques title y content que pueden ser sobreescritos por plantillas hijas.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Gestion de Usuarios{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html> 
